@@ -15,10 +15,11 @@ if uploaded_file:
     image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption="Gambar Input", use_column_width=True)
 
-    img = image.resize((224, 224))
+    img = image.resize((32,32))
     img = np.array(img) / 255.0
     img = np.expand_dims(img, axis=0)
 
     prediction = model.predict(img)
     st.success(f"Hasil Prediksi: {np.argmax(prediction)}")
+
 
