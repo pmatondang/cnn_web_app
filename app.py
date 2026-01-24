@@ -23,10 +23,11 @@ if uploaded_file:
 
     class_names = ['Airplane','Automobile','Bird','Cat','Deer','Dog','Frog','Horse','Ship','Truck']
 
-    st.image(small_img.resize((128,128)), caption="Versi 32x32 diperbesar untuk model")
+    #st.image(small_img.resize((128,128)), caption="versi 32x32 diperbesar untuk model")
 
     threshold = 0.5
     if proba < threshold:
         st.warning("Gambar belum ada di dataset CIFAR-10")
     else:
         st.success(f"Hasil Prediksi: {class_names[pred_class]} - (confidence: {proba:.2f})")
+
