@@ -4,33 +4,32 @@ import numpy as np
 from PIL import Image
 import os
 
-st.title("Aplikasi Prediksi Gambar CNN (CIFAR-10)")
+st.title("Prediksi Gambar CIFAR-10")
 
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "cnn_cifar10_model.h5")
+MODEL_PATH = "cnn_cifar10_model.h5"
+
+if not os.path.exists(MODEL_PATH):
+    st.error("Model tidak ditemukan. Pastikan file .h5 sudah di-upload ke GitHub.")
+    st.stop()
+
 model = tf.keras.models.load_model(MODEL_PATH)
 
 class_names = [
-    "airplane", "automobile", "bird", "cat", "deer",
-    "dog", "frog", "horse", "ship", "truck"
+    "airplane","automobile","bird","cat","deer",
+    "dog","frog","horse","ship","truck"
 ]
 
-uploaded_file = st.file_uploader(
-    "Upload gambar", type=["jpg", "png", "jpeg"]
-)
+uploaded_file = st.file_uploader("Upload gambar", type=["jpg","png","jpeg"])
 
-if uploaded_file is not None:
+if uploaded_file:
     image = Image.open(uploaded_file).convert("RGB")
-    st.image(image, caption="Gambar Input", use_container_width=True)
+    st.image(image, caption="Gambar Input", width=250)
 
-    img = image.resize((32, 32))      
-    img = np.array(img) / 255.0        
+    img = image.resize((32, 32))
+    img = np.array(img) / 255.0
     img = np.expand_dims(img, axis=0)
 
     prediction = model.predict(img)
-    predicted_class = np.argmax(prediction)
-    confidence = np.max(prediction) * 100
+    label = class_names[np.argmax(prediction)]
 
-    st.success(
-        f"Hasil Prediksi: {class_names[predicted_class]} "
-        f"({confidence:.2f}%)"
-    )
+    st.success(f"Hasil Prediksi: **{label}**")
