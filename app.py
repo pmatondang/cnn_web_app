@@ -27,10 +27,6 @@ if uploaded_file:
 
     threshold = 0.5
     if proba < threshold:
-        st.warning("⚠️ Gambar baru / belum ada di dataset CIFAR-10")
+        st.warning("Gambar belum ada di dataset CIFAR-10")
     else:
-        st.success(f"Hasil Prediksi: {class_names[pred_class]} (Confidence: {proba:.2f})")
-
-    st.subheader("Probabilitas tiap kelas:")
-    for i, name in enumerate(class_names):
-        st.write(f"{name}: {prediction[0][i]:.2f}")
+        st.success(f"Hasil Prediksi: {class_names[pred_class]} - (confidence: {proba:.2f})")
