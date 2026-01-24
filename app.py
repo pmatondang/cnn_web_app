@@ -5,7 +5,7 @@ from PIL import Image
 
 st.title("Aplikasi Prediksi Gambar CNN")
 
-model = tf.keras.models.load_model("cnn_cifar_model.h5")
+model = tf.keras.models.load_model("cnn_cifar10_model.h5")
 
 uploaded_file = st.file_uploader(
     "Upload gambar", type=["jpg", "png", "jpeg"]
@@ -21,4 +21,5 @@ if uploaded_file:
 
     prediction = model.predict(img)
     st.success(f"Hasil Prediksi: {np.argmax(prediction)}")
+
 
