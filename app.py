@@ -31,3 +31,4 @@ if uploaded_file:
     else:
         st.success(f"Hasil Prediksi: {class_names[pred_class]} - (confidence: {proba:.2f})")
 
+
